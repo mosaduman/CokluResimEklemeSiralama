@@ -1,2 +1,2 @@
 # CokluResimEklemeSiralama
-projenin çalışır halinin videosu: https://youtu.be/57QzoK218TI
+Projenin önizlemesinin videosu : https://youtu.be/57QzoK218TI
