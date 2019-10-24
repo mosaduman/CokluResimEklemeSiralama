@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+@model IEnumerable<ResimEklemeSiralama.Models.Image>
+<html>
+<head>
+
+    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+    <link rel="stylesheet" href="~/vendor/jquery/jquery-ui/jquery-ui.css">
+    <script src="~/vendor/jquery/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/vendor/css/style.css">
+
+    <title>Change Order of Images in Photo Gallery with Drag and Drop using PHP AJAX</title>
+   
+</head>
+<body>
+    <div id="gallery">
+        <div id="image-container">
+            <div id="bilgi"> </div>
+            <ul id="image-list">
+                @foreach (var item in Model)
+                {
+                    <li id="image_@item.Id">
+                        <img src="~/dosya/@item.imgAddress" alt="resim">
+                    </li>
+                }
+            </ul>
+        </div>
+        <div id="submit-container">
+            <input type='button' class="btn-submit" value=' Sırala' id='submit' />
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $("#image-list").sortable();
+
+            $('#submit').click(function (e) {
+                var imageIdsArray = [];
+                var sira = $('#image-list li').length;
+
+                $('#image-list li').each(function (index) {
+                    if (index <= sira) {
+                        var id = $(this).attr('id');
+                        var split_id = id.split("_");
+                        imageIdsArray.push(split_id[1]);
+                    }
+                });
+                var a = {
+                    dizi: imageIdsArray,
+                };
+                $.ajax({
+                    url: '/upplood/Resim',
+                    type: 'Post',
+                    dataType: 'json',
+                    data: a,
+                    //data: JSON.stringify(imageIdsArray),
+                    success: function (response) {
+                        $("#bilgi").css('display', 'inline-block');
+                        $("#bilgi").text(response);
+                    }
+
+                });
+                e.preventDefault();
+            });
+
+        });
+
+    </script>
+</body>
+</html>

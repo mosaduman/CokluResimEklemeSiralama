@@ -1,0 +1,63 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/vendor/css/style.css" rel="stylesheet" />
+
+    <title>UploadAction</title>
+    <style>
+        #loadingImg {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "upplood", FormMethod.Post, new
+    { enctype = "multipart/form-data" }))
+    {
+        <input type="text" name="carid" id="carid" hidden value="@ViewBag.car_id" />
+        <input type="file" id="fileUpload" name="files" value="" multiple="multiple" />
+        <input type="submit" id="submit" value="Yükle" />
+        <div style="color:Red;font-size:14px">@ViewBag.Message</div>
+        <div id="resimler"></div>
+    }
+    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $("#submit").prop("disabled", true);
+        $(document).ready(function () {
+            $("#fileUpload").change(function () {
+                var sayi = $("#fileUpload").get(0).files.length;
+                $("#resimler").empty();
+                if (sayi > 25) {
+                    $("#submit").prop("disabled", true);
+                    alert("En Fazla 25 Fotoğraf Yükleyebilirsiniz");
+                }
+                else if (sayi < 1) {
+                    $("#submit").prop("disabled", true);
+                    alert("Lütfen Bir Fotoğraf Seçiniz");
+                }
+                else {
+                    $("#submit").prop("disabled", false);
+                    for (var i = 0; i < sayi; i++) {
+                        var file = document.getElementById("fileUpload").files[i];
+                        var readImg = new FileReader();
+                        readImg.readAsDataURL(file);
+                        readImg.onload = function (e) {
+                            var resimadi = "resim" + i;
+                            $("#resimler").append("<img id=" + resimadi + " src=" + e.target.result + " width='240' height='240' />");
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

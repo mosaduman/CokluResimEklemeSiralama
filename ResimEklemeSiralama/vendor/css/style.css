@@ -1,0 +1,51 @@
+body
+{
+   font-family: Arial;
+   text:#212121;
+}
+#gallery{
+    width:1057px;
+    margin: 0 auto;
+}
+#image-list { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
+#image-list li { 
+    margin: 10px 20px 10px 0px; 
+    display: inline-block;
+}
+#image-list li img{
+    width: 250px;
+    height: 155px;
+}
+
+#image-container{
+    margin-bottom: 14px;
+}
+
+#txtresponse 
+{
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: none;
+    border :#E0E0E0 1px solid;
+    color:#212121;
+   
+}
+ 
+.btn-submit {
+    padding: 10px 30px;
+    background: #333;
+    border: #E0E0E0 1px solid;
+    color: #FFF;
+    font-size: 0.9em;
+    width: 100px;
+       
+    border-radius: 0px;
+    cursor:pointer;
+    position: absolute;
+}
